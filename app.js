@@ -25,7 +25,10 @@ const Idea = mongoose.model('ideas');
 const app = express() ;
 
 //middleware : 
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.engine('handlebars', exphbs({
+    defaultLayout: 'main'}
+));
+
 app.set('view engine','handlebars');
 
 // parse application/x-www-form-urlencoded
@@ -35,6 +38,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 // override with POST having ?_method=DELETE
+//also have to add a hidden html input tag 
 app.use(methodOverride('_method'))
 
 // app.use(function(req,res,next){
@@ -42,6 +46,7 @@ app.use(methodOverride('_method'))
 // next();
 // }
 // );
+
 
 //index route 
 
@@ -135,7 +140,8 @@ app.get('/ideas/edit/:id' , (req,res)=>{
 });
 
 //edit form process 
-//using method override , another way to work with this would be to use ajax 
+//will be using method override , another way to work with this would be to use ajax 
+// we cant make a put request from the form like we did for POST 
 app.put('/ideas/:id',(req,res)=>{
 res.send('PUT');
 });
